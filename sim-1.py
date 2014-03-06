@@ -1,15 +1,20 @@
 import pygame, sys
 from pygame.locals import *
 
-MAXX_SIZE = 600
-MAXY_SIZE = 480
-
 class Point(object):
+    maximum_x_size = None
+    maximum_y_size = None
+
+    @classmethod
+    def setup_class(cls, maximum_x_size, maximum_y_size):
+        cls.maximum_x_size = maximum_x_size
+        cls.maximum_y_size = maximum_y_size
+
     def __init__(self, x, y):
         x = int(x)
-        if x < 0 or x > MAX_SIZE:
+        if x < 0 or x > self.maximum_x_size:
             raise ValueError("invalid value for x")
-        if y < 0 or y > MAXY_SIZE:
+        if y < 0 or y > self.maximum_y_size:
             raise ValueError("invalid value for y")
         self.x = x
         self.y = y
@@ -31,12 +36,13 @@ class Game(object):
         self.window_x = window_x
         self.window_y = window_y
 
+        Point.setup_class(window_x, window_y)
         # set up the window
         pygame.init()
         self.screen = pygame.display.set_mode((window_x, window_y), 0, 32)
         pygame.display.set_caption('Drawing')
 
-        # run the game loop
+    def loop(self):
         t = 0
         while True:
             t = (t + 1) % 255
@@ -66,4 +72,5 @@ class Game(object):
         del pixObj
 
 if __name__ == '__main__':
-    g = Game(MAXX_SIZE, MAXY_SIZE)
+    g = Game(640, 480)
+    g.loop()
