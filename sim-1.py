@@ -36,6 +36,27 @@ class Person(object):
             0
         )
 
+class Region(object):
+    @classmethod
+    def setup_class(self, screen):
+        self.screen = screen
+
+    def __init__(self, x, y, w, h):
+        self.rect = pygame.rect.Rect(x, y, w, h)
+
+    def draw(self):
+        pygame.draw.rect(
+            self.screen,
+            Colors.red,
+            (
+                self.rect.x,
+                self.rect.y,
+                self.rect.w,
+                self.rect.h
+            ),
+            1
+        )
+
 class Colors(object):
     # set up the colors
     black = (0, 0, 0)
@@ -58,9 +79,12 @@ class Game(object):
     def setup_game(self):
         Point.setup_class(self.window_x, self.window_y)
         Person.setup_class(self.screen)
+        Region.setup_class(self.screen)
         self.draw_list = [
             Person(60, 60),
-            Person(120, 60)
+            Person(120, 60),
+            Region(200, 150, 100, 50),
+            Region(10, 10, 30, 30),
         ]
 
     def loop(self):
@@ -83,7 +107,6 @@ class Game(object):
         #pygame.draw.line(self.screen, Colors.blue, (60, 120), (120, 120), 4)
         #pygame.draw.circle(self.screen, Colors.blue, (300, 50), 20, 0)
         #pygame.draw.ellipse(self.screen, Colors.red, (300, 250, 40, 80), 1)
-        pygame.draw.rect(self.screen, Colors.red, (200, 150, 100, 50), 1)
     
         pixObj = pygame.PixelArray(self.screen)
         pixObj[480][380] = Colors.black
