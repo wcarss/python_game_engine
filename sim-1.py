@@ -27,11 +27,13 @@ class Colors(object):
     blue = (0, 0, 255)
 
 class Game(object):
-    def __init__(self):
-        pygame.init()
+    def __init__(self, window_x, window_y):
+        self.window_x = window_x
+        self.window_y = window_y
 
         # set up the window
-        self.screen = pygame.display.set_mode((MAXX_SIZE, MAXY_SIZE), 0, 32)
+        pygame.init()
+        self.screen = pygame.display.set_mode((window_x, window_y), 0, 32)
         pygame.display.set_caption('Drawing')
 
         # run the game loop
@@ -64,4 +66,4 @@ class Game(object):
         del pixObj
 
 if __name__ == '__main__':
-    g = Game()
+    g = Game(MAXX_SIZE, MAXY_SIZE)
