@@ -1,6 +1,13 @@
 import pygame, sys
 from pygame.locals import *
 
+class Colors(object):
+    black = (0, 0, 0)
+    white = (255, 255, 255)
+    red = (255, 0, 0)
+    green = (0, 255, 0)
+    blue = (0, 0, 255)
+
 class Point(object):
     maximum_x_size = None
     maximum_y_size = None
@@ -56,14 +63,6 @@ class Region(object):
             ),
             1
         )
-
-class Colors(object):
-    # set up the colors
-    black = (0, 0, 0)
-    white = (255, 255, 255)
-    red = (255, 0, 0)
-    green = (0, 255, 0)
-    blue = (0, 0, 255)
 
 class Game(object):
     def __init__(self, window_x, window_y):
