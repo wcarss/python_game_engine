@@ -91,8 +91,12 @@ class Game(object):
             t = (t + 1) % 255
             for event in pygame.event.get():
                 if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
+                    self.end_game()
+                if event.type == pygame.KEYDOWN:
+                    if (event.key == pygame.K_ESCAPE or
+                        event.key == pygame.K_q):
+                      self.end_game()
+
             self.setup_update(t)
             pygame.display.update()
 
@@ -100,6 +104,10 @@ class Game(object):
         self.screen.fill(Colors.white)
         for entity in self.draw_list:
             entity.draw()
+
+    def end_game(self):
+        pygame.quit()
+        sys.exit()
 
 if __name__ == '__main__':
     g = Game(640, 480)
