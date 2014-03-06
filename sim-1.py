@@ -69,7 +69,6 @@ class Game(object):
         self.window_x = window_x
         self.window_y = window_y
 
-        # set up the window
         pygame.init()
         self.screen = pygame.display.set_mode((window_x, window_y), 0, 32)
         pygame.display.set_caption('Drawing')
@@ -101,19 +100,6 @@ class Game(object):
         self.screen.fill(Colors.white)
         for entity in self.draw_list:
             entity.draw()
-        #pygame.draw.line(self.screen, Colors.blue, (60, 60), (120, 60), 4)
-        #pygame.draw.line(self.screen, Colors.blue, (120, 60), (60, 120))
-        #pygame.draw.line(self.screen, Colors.blue, (60, 120), (120, 120), 4)
-        #pygame.draw.circle(self.screen, Colors.blue, (300, 50), 20, 0)
-        #pygame.draw.ellipse(self.screen, Colors.red, (300, 250, 40, 80), 1)
-    
-        pixObj = pygame.PixelArray(self.screen)
-        pixObj[480][380] = Colors.black
-        pixObj[482][382] = Colors.black
-        pixObj[484][384] = Colors.black
-        pixObj[486][386] = Colors.black
-        pixObj[488][388] = Colors.black
-        del pixObj
 
 if __name__ == '__main__':
     g = Game(640, 480)
