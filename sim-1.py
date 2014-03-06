@@ -20,8 +20,21 @@ class Point(object):
         self.y = y
 
 class Person(object):
+    @classmethod
+    def setup_class(self, screen):
+        self.screen = screen
+
     def __init__(self, x, y):
         self.location = Point(x, y)
+
+    def draw(self):
+        pygame.draw.circle(
+            self.screen,
+            Colors.red,
+            (self.location.x, self.location.y),
+            3,
+            0
+        )
 
 class Colors(object):
     # set up the colors
@@ -36,11 +49,19 @@ class Game(object):
         self.window_x = window_x
         self.window_y = window_y
 
-        Point.setup_class(window_x, window_y)
         # set up the window
         pygame.init()
         self.screen = pygame.display.set_mode((window_x, window_y), 0, 32)
         pygame.display.set_caption('Drawing')
+        self.setup_game()
+
+    def setup_game(self):
+        Point.setup_class(self.window_x, self.window_y)
+        Person.setup_class(self.screen)
+        self.draw_list = [
+            Person(60, 60),
+            Person(120, 60)
+        ]
 
     def loop(self):
         t = 0
@@ -55,7 +76,8 @@ class Game(object):
 
     def setup_update(self, time):
         self.screen.fill(Colors.white)
-        pygame.draw.circle(self.screen, Colors.red, (60, 60), 3, 0)
+        for entity in self.draw_list:
+            entity.draw()
         #pygame.draw.line(self.screen, Colors.blue, (60, 60), (120, 60), 4)
         #pygame.draw.line(self.screen, Colors.blue, (120, 60), (60, 120))
         #pygame.draw.line(self.screen, Colors.blue, (60, 120), (120, 120), 4)
