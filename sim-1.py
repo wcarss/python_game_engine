@@ -28,8 +28,9 @@ class Point(object):
 
 class Person(object):
     @classmethod
-    def setup_class(self, screen):
+    def setup_class(self, screen, event_queue):
         self.screen = screen
+        self.event_queue = event_queue
 
     def __init__(self, x, y):
         self.location = Point(x, y)
@@ -45,8 +46,9 @@ class Person(object):
 
 class Region(object):
     @classmethod
-    def setup_class(self, screen):
+    def setup_class(self, screen, event_queue):
         self.screen = screen
+        self.event_queue = event_queue
 
     def __init__(self, x, y, w, h):
         self.rect = pygame.rect.Rect(x, y, w, h)
@@ -68,6 +70,7 @@ class Game(object):
     def __init__(self, window_x, window_y):
         self.window_x = window_x
         self.window_y = window_y
+        self.event_queue = []
 
         pygame.init()
         self.screen = pygame.display.set_mode((window_x, window_y), 0, 32)
@@ -76,8 +79,8 @@ class Game(object):
 
     def setup_game(self):
         Point.setup_class(self.window_x, self.window_y)
-        Person.setup_class(self.screen)
-        Region.setup_class(self.screen)
+        Person.setup_class(self.screen, self.event_queue)
+        Region.setup_class(self.screen, self.event_queue)
         self.draw_list = [
             Person(60, 60),
             Person(120, 60),
@@ -96,6 +99,8 @@ class Game(object):
                     if (event.key == pygame.K_ESCAPE or
                         event.key == pygame.K_q):
                       self.end_game()
+            for event in self.event_queue:
+                pass
 
             self.setup_update(t)
             pygame.display.update()
