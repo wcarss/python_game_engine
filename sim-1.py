@@ -50,7 +50,10 @@ class Region(object):
         self.screen = screen
         self.event_queue = event_queue
 
-    def __init__(self, x, y, w, h):
+    def __init__(self, x, y, w, h, filled=False):
+        self.border = 1
+        if filled:
+            self.border = 0
         self.rect = pygame.rect.Rect(x, y, w, h)
 
     def draw(self):
@@ -63,7 +66,7 @@ class Region(object):
                 self.rect.w,
                 self.rect.h
             ),
-            1
+            self.border
         )
 
 class Game(object):
