@@ -50,16 +50,21 @@ class Region(object):
         self.screen = screen
         self.event_queue = event_queue
 
-    def __init__(self, x, y, w, h, filled=False):
+    def __init__(self, x, y, w, h, filled=False, color=None):
         self.border = 1
         if filled:
             self.border = 0
+        self.color = color
+        if color is None:
+            self.color = Colors.red
         self.rect = pygame.rect.Rect(x, y, w, h)
 
-    def draw(self):
+    def draw(self, color=None):
+        if color is None:
+            color = self.color
         pygame.draw.rect(
             self.screen,
-            Colors.red,
+            color,
             (
                 self.rect.x,
                 self.rect.y,
@@ -87,8 +92,12 @@ class Game(object):
         self.draw_list = [
             Person(60, 60),
             Person(120, 60),
-            Region(200, 150, 100, 50),
-            Region(10, 10, 30, 30),
+            Region(200, 150, 100, 50, True, (80, 80, 80)),
+            Region(10, 10, 29, 29, True, (20, 20, 20)),
+            Region(40, 10, 29, 29, True, (50, 50, 50)),
+            Region(70, 10, 29, 29, True, (110, 110, 110)),
+            Region(100, 10, 29, 29, True, (140, 140, 140)),
+            Region(130, 10, 29, 29, True, (170, 170, 170)),
         ]
 
     def loop(self):
